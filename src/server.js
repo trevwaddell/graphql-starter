@@ -23,7 +23,7 @@ async function start() {
       console.log(`GraphQL server running on PORT ${port}`)
     );
   } catch (error) {
-    console.log(`Error while connection to the database: ${error}`);
+    console.log(`Error while initializing db connection: ${error}`);
   }
 }
 
