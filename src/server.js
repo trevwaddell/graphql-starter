@@ -1,30 +1,31 @@
-import express from "express";
-import graphqlHTTP from "express-graphql";
+import express from 'express'
+import graphqlHTTP from 'express-graphql'
 
-import schema from "./schema";
-import initializeDB from "./db";
+import schema from './schema'
+import initializeDB from './db'
 
-const port = process.env.PORT || 4200;
-const app = express();
+const port = process.env.PORT || 4200
+const app = express()
 
 async function start() {
   try {
-    const db = await initializeDB();
+    const db = await initializeDB()
 
     app.use(
-      "/graphql",
+      '/graphql',
       graphqlHTTP({
         schema,
         context: db,
-        graphiql: true
+        graphiql: true,
       })
-    );
+    )
+
     app.listen(port, () =>
       console.log(`GraphQL server running on PORT ${port}`)
-    );
+    )
   } catch (error) {
-    console.log(`Error while initializing db connection: ${error}`);
+    console.log(`Error while initializing db connection: ${error}`)
   }
 }
 
-start();
+start()

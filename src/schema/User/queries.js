@@ -1,15 +1,15 @@
-import { GraphQLString, GraphQLNonNull } from "graphql";
-import User from "./index";
+import { GraphQLString, GraphQLNonNull } from 'graphql'
+import User from './index'
 
 export const getUser = {
   type: User,
-  name: "Query",
+  name: 'Query',
   args: {
     id: {
-      type: GraphQLNonNull(GraphQLString)
-    }
+      type: GraphQLNonNull(GraphQLString),
+    },
   },
   resolve: async (_, args, db) => {
-    return db.collection("practice").findOne(args);
-  }
-};
+    return db.collection('practice').findOne(args)
+  },
+}

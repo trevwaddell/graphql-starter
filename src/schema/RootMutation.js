@@ -1,10 +1,10 @@
-import { GraphQLObjectType } from "graphql";
-import * as UserMutations from "./User/mutations";
+import { GraphQLObjectType } from 'graphql'
+import * as UserMutations from './User/mutations'
 
 export default new GraphQLObjectType({
-  name: "RootMutation",
-  description: "The root mutation",
+  name: 'RootMutation',
+  description: 'The root mutation',
   fields: () => ({
-    ...UserMutations
-  })
-});
+    ...UserMutations,
+  }),
+})
