@@ -15,7 +15,7 @@ async function start() {
       '/graphql',
       graphqlHTTP({
         schema,
-        context: db,
+        context: { db },
         graphiql: true,
       })
     )
