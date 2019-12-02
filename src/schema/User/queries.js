@@ -1,5 +1,5 @@
-import { GraphQLString, GraphQLNonNull } from 'graphql'
-import User from './index'
+import { GraphQLString, GraphQLNonNull } from 'graphql';
+import User from './index';
 
 export const getUser = {
   type: User,
@@ -9,7 +9,7 @@ export const getUser = {
       type: GraphQLNonNull(GraphQLString),
     },
   },
-  resolve: async (_, args, db) => {
-    return db.collection('practice').findOne(args)
+  resolve: async (_, args, { db }) => {
+    return db.collection('practice').findOne(args);
   },
-}
+};
