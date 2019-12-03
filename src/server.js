@@ -17,7 +17,7 @@ async function start() {
     const pubsub = new PubSub();
     const server = new ApolloServer({
       schema,
-      context: async () => ({ db, pubsub }),
+      context: async () => ({ db, pubsub })
     });
 
     server.applyMiddleware({ app });
