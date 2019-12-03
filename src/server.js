@@ -32,7 +32,6 @@ async function start() {
     });
   } catch (error) {
     console.log(`Error while starting app: ${error}`);
-    // maybe add retry logic
   }
 }
 
