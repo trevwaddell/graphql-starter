@@ -1,7 +1,7 @@
-import express from 'express';
 import { createServer } from 'http';
-import expressPlayground from 'graphql-playground-middleware-express';
+import express from 'express';
 import { ApolloServer, PubSub } from 'apollo-server-express';
+import expressPlayground from 'graphql-playground-middleware-express';
 
 import schema from './schema';
 import initializeDB from './db';
