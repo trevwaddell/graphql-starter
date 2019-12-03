@@ -8,10 +8,17 @@ export const addUser = {
     id: { type: GraphQLString },
     name: { type: GraphQLString },
   },
-  resolve: async (_, args, { db }) => {
-    console.log('foo');
-    const { ops } = await db.collection('practice').insertOne(args);
-    return ops[0];
+  resolve: async (_, args, { db, pubsub }) => {
+    try {
+      const { ops } = await db.collection('practice').insertOne(args);
+      const newUser = ops[0];
+
+      pubsub.publish('newuser-added', { newUser });
+
+      return newUser;
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 

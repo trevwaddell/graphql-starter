@@ -1,6 +1,7 @@
 import express from 'express';
+import { createServer } from 'http';
 import expressPlayground from 'graphql-playground-middleware-express';
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer, PubSub } from 'apollo-server-express';
 
 import schema from './schema';
 import initializeDB from './db';
@@ -11,23 +12,23 @@ async function start() {
 
   try {
     const db = await initializeDB();
+    const httpServer = createServer(app);
+    const pubsub = new PubSub();
     const server = new ApolloServer({
       schema,
-      context: async () => {
-        return { db };
-      },
+      context: async () => ({ db, pubsub }),
     });
-
-    app.get('/', (req, res) =>
-      res.end('GraphQL Server! use the ui at /graphql')
-    );
-    app.get('/playground', expressPlayground({ endpoint: '/graphql' }));
 
     server.applyMiddleware({ app });
 
-    app.listen(port, () =>
-      console.log(`GraphQL server running on PORT ${port}`)
-    );
+    app.get('/', (req, res) => res.end('GraphQL Api!'));
+    app.get('/playground', expressPlayground({ endpoint: '/graphql' }));
+
+    server.installSubscriptionHandlers(httpServer);
+
+    httpServer.listen({ port }, () => {
+      console.log(`GraphQL server running on PORT ${server.graphqlPath}`);
+    });
   } catch (error) {
     console.log(`Error while starting app: ${error}`);
   }
