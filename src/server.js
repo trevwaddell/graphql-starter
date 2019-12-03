@@ -12,6 +12,7 @@ async function start() {
 
   try {
     const db = await initializeDB();
+
     const httpServer = createServer(app);
     const pubsub = new PubSub();
     const server = new ApolloServer({
@@ -31,6 +32,7 @@ async function start() {
     });
   } catch (error) {
     console.log(`Error while starting app: ${error}`);
+    // maybe add retry logic
   }
 }
 
