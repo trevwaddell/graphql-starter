@@ -1,11 +1,12 @@
 import { GraphQLList } from 'graphql';
 import HelloWorld from './index';
+import { HELLO_WORLD_COLLECTION } from '../../constants';
 
 export const allHelloWorlds = {
-  type: HelloWorld,
+  type: GraphQLList(HelloWorld),
   resolve: async (parent, args, { db }) => {
     return db
-      .collection('practice')
+      .collection(HELLO_WORLD_COLLECTION)
       .find()
       .toArray();
   }
