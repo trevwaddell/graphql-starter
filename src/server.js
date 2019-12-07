@@ -1,5 +1,3 @@
-function graphQuill() {}
-
 import { createServer } from 'http';
 import express from 'express';
 import { ApolloServer, PubSub } from 'apollo-server-express';
