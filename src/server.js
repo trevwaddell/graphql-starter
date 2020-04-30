@@ -28,7 +28,9 @@ async function start() {
     server.installSubscriptionHandlers(httpServer);
 
     httpServer.listen({ port }, () => {
-      console.log(`GraphQL server running on PORT ${server.graphqlPath}`);
+      console.log(
+        `GraphQL server running on PORT ${port} at  ${server.graphqlPath}`
+      );
     });
   } catch (error) {
     console.log(`Error while starting app: ${error}`);
