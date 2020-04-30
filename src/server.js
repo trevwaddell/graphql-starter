@@ -29,7 +29,7 @@ async function start() {
 
     httpServer.listen({ port }, () => {
       console.log(
-        `GraphQL server running on PORT ${port} at  ${server.graphqlPath}`
+        `GraphQL server running on PORT ${port} at: ${server.graphqlPath}`
       );
     });
   } catch (error) {
