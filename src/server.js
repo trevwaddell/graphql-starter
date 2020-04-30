@@ -8,10 +8,12 @@ import initializeDB from './db';
 
 async function start() {
   const port = process.env.PORT || 4200;
+  const mongoUrl =
+    process.env.MONGO_CONNECTION_URI || 'mongodb://localhost:27017/practice';
   const app = express();
 
   try {
-    const db = await initializeDB();
+    const db = await initializeDB(mongoUrl);
 
     const httpServer = createServer(app);
     const pubsub = new PubSub();
