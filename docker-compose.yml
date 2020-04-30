@@ -1,0 +1,15 @@
+version: '3'
+services:
+  gql:
+    build: .
+    ports:
+      - '4200:4200'
+    volumes:
+      - .:/home/node/code
+      - /home/node/code/node_modules
+    links:
+      - mongo
+    environment:
+      MONGO_CONNECTION_URI: mongodb://mongo:27017/practice
+  mongo:
+    image: mongo:3
