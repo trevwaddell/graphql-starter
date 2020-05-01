@@ -1,10 +1,11 @@
 import { createServer } from 'http';
 import express from 'express';
-import { ApolloServer, PubSub } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
+import { RedisPubSub } from 'graphql-redis-subscriptions';
 import expressPlayground from 'graphql-playground-middleware-express';
 
 import schema from './schema';
-import initializeDB from './db';
+import initializeDB, { redisOptions } from './db';
 
 async function start() {
   const port = process.env.PORT || 4200;
@@ -16,7 +17,7 @@ async function start() {
     const db = await initializeDB(mongoUrl);
 
     const httpServer = createServer(app);
-    const pubsub = new PubSub();
+    const pubsub = new RedisPubSub(redisOptions);
     const server = new ApolloServer({
       schema,
       context: async () => ({ db, pubsub })

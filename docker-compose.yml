@@ -9,7 +9,12 @@ services:
       - /home/node/code/node_modules
     links:
       - mongo
+      - redis
     environment:
       MONGO_CONNECTION_URI: mongodb://mongo:27017/practice
+      REDIS_DOMAIN_NAME: http://redis.io
+      REDIS_PORT_NUMBER: 6379
   mongo:
     image: mongo:3
+  redis:
+    image: redis:6
