@@ -8,9 +8,7 @@ WORKDIR /home/node/code
 
 COPY --chown=node:node yarn.lock package.json ./
 
-RUN yarn 
-
-RUN ls node_modules
+RUN yarn install --frozen-lockfile
 
 COPY --chown=node:node . .
 
