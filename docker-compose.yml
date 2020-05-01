@@ -9,7 +9,19 @@ services:
       - /home/node/code/node_modules
     links:
       - mongo
+      - redis
     environment:
       MONGO_CONNECTION_URI: mongodb://mongo:27017/practice
+      REDIS_DOMAIN_NAME: redis
+      REDIS_PORT_NUMBER: 6379
+      DOCKER_ENV: 1
   mongo:
     image: mongo:3
+    ports:
+      - '27017:27017'
+  redis:
+    image: 'redis:alpine'
+    hostname: redis
+    ports:
+      - '6379:6379'
+      # $ docker run -it --network graphql_starter_default --rm redis redis-cli -h redis
