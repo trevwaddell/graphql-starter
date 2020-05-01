@@ -1,3 +1,5 @@
+# dependencies
+node_modules/
 
-# dot files
-.git
+# dotfiles
+.git/

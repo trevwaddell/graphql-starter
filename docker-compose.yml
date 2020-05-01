@@ -12,9 +12,12 @@ services:
       - redis
     environment:
       MONGO_CONNECTION_URI: mongodb://mongo:27017/practice
-      REDIS_DOMAIN_NAME: http://redis.io
+      REDIS_DOMAIN_NAME: redis
       REDIS_PORT_NUMBER: 6379
   mongo:
     image: mongo:3
   redis:
-    image: redis:6
+    image: 'redis:alpine'
+    hostname: redis
+    ports:
+      - '6379:6379'

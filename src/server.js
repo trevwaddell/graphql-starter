@@ -3,6 +3,7 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
 import expressPlayground from 'graphql-playground-middleware-express';
+import Redis from 'ioredis';
 
 import schema from './schema';
 import initializeDB, { redisOptions } from './db';
@@ -15,9 +16,11 @@ async function start() {
 
   try {
     const db = await initializeDB(mongoUrl);
-
     const httpServer = createServer(app);
-    const pubsub = new RedisPubSub(redisOptions);
+    const pubsub = new RedisPubSub({
+      publisher: new Redis(redisOptions),
+      subscriber: new Redis(redisOptions)
+    });
     const server = new ApolloServer({
       schema,
       context: async () => ({ db, pubsub })
