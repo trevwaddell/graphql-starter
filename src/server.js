@@ -6,21 +6,18 @@ import expressPlayground from 'graphql-playground-middleware-express';
 import Redis from 'ioredis';
 
 import schema from './schema';
-import initializeDB, { redisOptions } from './db';
+import initializeDB, { configureRedis } from './db';
 
 async function start() {
   const port = process.env.PORT || 4200;
-  const mongoUrl =
-    process.env.MONGO_CONNECTION_URI || 'mongodb://localhost:27017/practice';
+  const mongoUrl = process.env.MONGO_CONNECTION_URI;
+  const redisOptions = configureRedis(process.env);
   const app = express();
 
   try {
     const db = await initializeDB(mongoUrl);
     const httpServer = createServer(app);
-    const pubsub = new RedisPubSub({
-      publisher: new Redis(redisOptions),
-      subscriber: new Redis(redisOptions)
-    });
+    const pubsub = new RedisPubSub(redisOptions);
     const server = new ApolloServer({
       schema,
       context: async () => ({ db, pubsub })
